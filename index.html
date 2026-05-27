@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Unit Bit – Biglietti da visita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --blue:       #1B5FAD;
+      --blue-dark:  #0D3A6B;
+      --blue-light: #E8F1FB;
+      --bg:         #F2F6FC;
+      --white:      #FFFFFF;
+      --text:       #1A2940;
+      --muted:      #6B7A8D;
+      --border:     #D6E2F0;
+      --shadow:     0 4px 28px rgba(13,58,107,.11);
+      --shadow-lg:  0 8px 40px rgba(13,58,107,.18);
+      --radius:     16px;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── PAGE ROUTING ─── */
+    .page { display: none; animation: fadeIn .25s ease; }
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════════
+       HOME — QR CODES
+    ════════════════════════════════ */
+    #page-home {
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+    }
+    #page-home.active { display: flex; }
+
+    .home-brand {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .home-logo {
+      height: 72px;
+      object-fit: contain;
+      margin-bottom: .75rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .home-eyebrow {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .qr-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+
+    .qr-tile {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.25rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform .2s, box-shadow .2s;
+      border: 2px solid transparent;
+    }
+
+    .qr-tile:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--blue-light);
+    }
+
+    .qr-canvas-wrap {
+      width: 140px;
+      height: 140px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-canvas-wrap canvas,
+    .qr-canvas-wrap img { display: block; }
+
+    .qr-initials {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto .75rem;
+    }
+
+    .qr-name {
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: .2rem;
+    }
+
+    .qr-role {
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    .qr-scan-hint {
+      font-size: .7rem;
+      color: var(--blue);
+      margin-top: .6rem;
+      font-weight: 500;
+    }
+
+    /* print instructions */
+    .print-note {
+      max-width: 560px;
+      text-align: center;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      margin-top: .75rem;
+      padding: .55rem 1.25rem;
+      border: 1.5px solid var(--blue);
+      border-radius: 8px;
+      color: var(--blue);
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: none;
+      font-family: inherit;
+      transition: background .15s, color .15s;
+    }
+
+    .print-btn:hover { background: var(--blue); color: white; }
+
+    /* ════════════════════════════════
+       CARD PAGE — shared
+    ════════════════════════════════ */
+    #page-andrea,
+    #page-davide {
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+    }
+    #page-andrea.active,
+    #page-davide.active { display: flex; }
+
+    .card-header {
+      width: 100%;
+      background: linear-gradient(145deg, var(--blue-dark) 0%, var(--blue) 100%);
+      padding: 2.5rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: var(--bg);
+      border-radius: 32px 32px 0 0;
+    }
+
+    .header-logo {
+      height: 44px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      display: block;
+      margin: 0 auto 2rem;
+    }
+
+    .card-avatar-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-avatar {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(4px);
+      border: 2.5px solid rgba(255,255,255,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -.02em;
+    }
+
+    .card-name {
+      color: white;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: .35rem;
+    }
+
+    .card-role-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.18);
+      color: rgba(255,255,255,.9);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .3rem .85rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.3);
+    }
+
+    /* ─── CARD BODY ─── */
+    .card-body {
+      width: 100%;
+      max-width: 480px;
+      padding: .75rem 1.25rem 2rem;
+      flex: 1;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: .82rem;
+      font-family: inherit;
+      cursor: pointer;
+      padding: .6rem 0 1rem;
+      transition: color .15s;
+    }
+    .back-btn:hover { color: var(--blue); }
+
+    /* contact rows */
+    .contact-block {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      padding: .9rem 1.1rem;
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row:hover { background: var(--blue-light); }
+    .contact-row.static:hover { background: none; cursor: default; }
+
+    .row-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .row-icon svg { width:18px; height:18px; fill: var(--blue); }
+
+    .row-text { flex: 1; min-width: 0; }
+    .row-label {
+      font-size: .65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: .18rem;
+    }
+    .row-value {
+      font-size: .92rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* action buttons */
+    .action-btn {
+      width: 100%;
+      padding: .9rem 1rem;
+      border: none;
+      border-radius: var(--radius);
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      font-family: inherit;
+      transition: transform .1s, opacity .15s;
+      margin-bottom: .75rem;
+    }
+    .action-btn:hover  { opacity: .88; }
+    .action-btn:active { transform: scale(.98); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      color: white;
+      box-shadow: 0 4px 16px rgba(27,95,173,.3);
+    }
+
+    .btn-outline {
+      background: var(--white);
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      box-shadow: var(--shadow);
+    }
+
+    /* company footer */
+    .co-footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .72rem;
+      line-height: 1.7;
+      margin-top: .5rem;
+    }
+    .co-footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* ─── PRINT ─── */
+    @media print {
+      body { background: white; }
+      .back-btn, .action-btn, .co-footer { display: none !important; }
+      .page { display: none !important; }
+      #page-home { display: flex !important; }
+      .qr-tile { box-shadow: none; border: 1px solid #ccc; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 400px) {
+      .qr-grid { grid-template-columns: 1fr; max-width: 260px; }
+      .card-name { font-size: 1.35rem; }
+      .card-header { padding: 2rem 1.5rem 4.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HOME — due QR code
+═══════════════════════════════════════════════ -->
+<div id="page-home" class="page">
+  <div class="home-brand">
+    <img src="./logo_unitbit.png" alt="Unit Bit" class="home-logo">
+    <p class="home-eyebrow">Biglietti da visita digitali</p>
+  </div>
+
+  <div class="qr-grid">
+    <!-- Andrea -->
+    <a class="qr-tile" href="#andrea" onclick="navigate('andrea'); return false;">
+      <div class="qr-canvas-wrap">
+        <div id="qr-andrea"></div>
+      </div>
+      <div class="qr-initials">AC</div>
+      <div class="qr-name">Andrea Caspani</div>
+      <div class="qr-scan-hint">↑ Scansiona per aprire</div>
+    </a>
+
+    <!-- Davide -->
+    <a class="qr-tile" href="#davide" onclick="navigate('davide'); return false;">
+      <div class="qr-canvas-wrap">
+        <div id="qr-davide"></div>
+      </div>
+      <div class="qr-initials">DP</div>
+      <div class="qr-name">Davide Pedrini</div>
+      <div class="qr-scan-hint">↑ Scansiona per aprire</div>
+    </a>
+  </div>
+
+  <div class="print-note">
+    Stampa questa pagina per ottenere i QR code da incollare sui biglietti fisici.
+    <br>
+    <button class="print-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 8H5a3 3 0 00-3 3v5h4v3h12v-3h4v-5a3 3 0 00-3-3zm-3 11H8v-5h8v5zm1-11H7V4h10v4zm2 2.5a1 1 0 110-2 1 1 0 010 2z"/></svg>
+      Stampa QR code
+    </button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     ANDREA CASPANI
+═══════════════════════════════════════════════ -->
+<div id="page-andrea" class="page">
+  <div class="card-header">
+    <img src="./logo_unitbit.png" alt="Unit Bit" class="header-logo">
+    <div class="card-avatar-wrap">
+      <div class="card-avatar">AC</div>
+    </div>
+    <div class="card-name">Andrea Caspani</div>
+  </div>
+
+  <div class="card-body">
+    <button class="back-btn" onclick="navigate('home')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Tutti i biglietti
+    </button>
+
+    <div class="contact-block">
+      <a class="contact-row" href="tel:+393280662990">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Mobile</div>
+          <div class="row-value">+39 328 066 2990</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="tel:+390342904616">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1zm9 8l8-5H4l8 5z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Ufficio</div>
+          <div class="row-value">+39 0342 904616</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="mailto:andrea@unitbit.it">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Email</div>
+          <div class="row-value">andrea@unitbit.it</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="https://unitbit.it" target="_blank" rel="noopener">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55-.45-1-1-1H8l-.88-.88L6 15v-1l1-1h3l1 1v1h1v-1l2-2v-2l-1-1H9l-1 1H6l-2-2v-2l1-1h2v-1h2V6.07c3.83.48 6.78 3.43 7.26 7.26A7.997 7.997 0 0111 19.93z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Web</div>
+          <div class="row-value">unitbit.it</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <div class="contact-row static">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Indirizzo</div>
+          <div class="row-value">Via Alberti snc, 23032 Bormio (SO)</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="action-btn btn-primary" onclick="saveContact('andrea')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2zM12 17a3 3 0 100-6 3 3 0 000 6zm1-11H7v4h6V6z"/></svg>
+      Salva contatto
+    </button>
+    <button class="action-btn btn-outline" onclick="shareCard('andrea')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.28 3.28 0 000-1.38l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 000-6 3 3 0 00-3 3c0 .24.04.47.09.69L8.04 9.81A3 3 0 006 9a3 3 0 000 6c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65a3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+      Condividi biglietto
+    </button>
+
+    <div class="co-footer">
+      Unit Bit Srl &nbsp;·&nbsp; Via Alberti snc, 23032 Bormio (SO)<br>
+      P.IVA&nbsp;00586740144 &nbsp;·&nbsp; <a href="mailto:info@unitbit.it">info@unitbit.it</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     DAVIDE PEDRINI
+═══════════════════════════════════════════════ -->
+<div id="page-davide" class="page">
+  <div class="card-header">
+    <img src="./logo_unitbit.png" alt="Unit Bit" class="header-logo">
+    <div class="card-avatar-wrap">
+      <div class="card-avatar">DP</div>
+    </div>
+    <div class="card-name">Davide Pedrini</div>
+  </div>
+
+  <div class="card-body">
+    <button class="back-btn" onclick="navigate('home')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Tutti i biglietti
+    </button>
+
+    <div class="contact-block">
+      <a class="contact-row" href="tel:+390342904616">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Telefono</div>
+          <div class="row-value">+39 0342 904616</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="mailto:davide.pedrini@unitbit.com">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Email</div>
+          <div class="row-value">davide.pedrini@unitbit.com</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="https://unitbit.it" target="_blank" rel="noopener">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55-.45-1-1-1H8l-.88-.88L6 15v-1l1-1h3l1 1v1h1v-1l2-2v-2l-1-1H9l-1 1H6l-2-2v-2l1-1h2v-1h2V6.07c3.83.48 6.78 3.43 7.26 7.26A7.997 7.997 0 0111 19.93z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Web</div>
+          <div class="row-value">unitbit.it</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <div class="contact-row static">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Indirizzo</div>
+          <div class="row-value">Via Alberti snc, 23032 Bormio (SO)</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="action-btn btn-primary" onclick="saveContact('davide')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2zM12 17a3 3 0 100-6 3 3 0 000 6zm1-11H7v4h6V6z"/></svg>
+      Salva contatto
+    </button>
+    <button class="action-btn btn-outline" onclick="shareCard('davide')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.28 3.28 0 000-1.38l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 000-6 3 3 0 00-3 3c0 .24.04.47.09.69L8.04 9.81A3 3 0 006 9a3 3 0 000 6c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65a3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+      Condividi biglietto
+    </button>
+
+    <div class="co-footer">
+      Unit Bit Srl &nbsp;·&nbsp; Via Alberti snc, 23032 Bormio (SO)<br>
+      P.IVA&nbsp;00586740144 &nbsp;·&nbsp; <a href="mailto:info@unitbit.it">info@unitbit.it</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ─── CONTACT DATA ────────────────────────────────────────────
+const CONTACTS = {
+  andrea: {
+    fn:     'Andrea Caspani',
+    first:  'Andrea',
+    last:   'Caspani',
+    role:   'RES',
+    org:    'Unit Bit Srl',
+    mobile: '+393280662990',
+    tel:    '+390342904616',
+    email:  'andrea@unitbit.it',
+    url:    'https://unitbit.it',
+    adr:    'Via Alberti snc;;Bormio;SO;23032;Italy',
+  },
+  davide: {
+    fn:     'Davide Pedrini',
+    first:  'Davide',
+    last:   'Pedrini',
+    role:   'RES',
+    org:    'Unit Bit Srl',
+    tel:    '+390342904616',
+    email:  'davide.pedrini@unitbit.com',
+    url:    'https://unitbit.it',
+    adr:    'Via Alberti snc;;Bormio;SO;23032;Italy',
+  }
+};
+
+// ─── ROUTING ─────────────────────────────────────────────────
+function navigate(hash) {
+  const target = hash || 'home';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + target);
+  (page || document.getElementById('page-home')).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  history.pushState(null, '', '#' + target);
+}
+
+window.addEventListener('popstate', () => {
+  navigate(window.location.hash.replace('#', '') || 'home');
+});
+
+// ─── QR CODES ────────────────────────────────────────────────
+function buildQRCodes() {
+  const base = window.location.href.split('#')[0];
+  ['andrea', 'davide'].forEach(who => {
+    new QRCode(document.getElementById('qr-' + who), {
+      text:         base + '#' + who,
+      width:        140,
+      height:       140,
+      colorDark:    '#1B5FAD',
+      colorLight:   '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  });
+}
+
+// ─── vCARD DOWNLOAD ──────────────────────────────────────────
+function saveContact(who) {
+  const c = CONTACTS[who];
+  const lines = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    `FN:${c.fn}`,
+    `N:${c.last};${c.first};;;`,
+    `TITLE:${c.role}`,
+    `ORG:${c.org}`,
+    c.mobile ? `TEL;TYPE=CELL,VOICE:${c.mobile}` : '',
+    `TEL;TYPE=WORK,VOICE:${c.tel}`,
+    `EMAIL;TYPE=WORK:${c.email}`,
+    `URL:${c.url}`,
+    `ADR;TYPE=WORK:;;${c.adr}`,
+    'END:VCARD'
+  ].filter(Boolean).join('\r\n');
+
+  const blob = new Blob([lines], { type: 'text/vcard;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = Object.assign(document.createElement('a'), {
+    href: url, download: c.fn.replace(' ', '_') + '.vcf'
+  });
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ─── NATIVE SHARE ────────────────────────────────────────────
+function shareCard(who) {
+  const c    = CONTACTS[who];
+  const base = window.location.href.split('#')[0];
+  const link = base + '#' + who;
+
+  if (navigator.share) {
+    navigator.share({
+      title: `${c.fn} – Unit Bit Srl`,
+      text:  `Biglietto da visita di ${c.fn}`,
+      url:   link
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(link).then(() => {
+      alert('Link copiato negli appunti!');
+    }).catch(() => {
+      prompt('Copia il link:', link);
+    });
+  }
+}
+
+// ─── INIT ────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  buildQRCodes();
+  navigate(window.location.hash.replace('#', '') || 'home');
+});
+</script>
+</body>
+</html>
