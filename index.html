@@ -195,7 +195,7 @@
     .card-header {
       width: 100%;
       background: linear-gradient(145deg, var(--blue-dark) 0%, var(--blue) 100%);
-      padding: 2.5rem 2rem 5rem;
+      padding: 1.25rem 2rem 3.5rem;
       text-align: center;
       position: relative;
     }
@@ -212,22 +212,22 @@
     }
 
     .header-logo {
-      height: 44px;
+      height: 38px;
       object-fit: contain;
       filter: brightness(0) invert(1);
       display: block;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1rem;
     }
 
     .card-avatar-wrap {
       position: relative;
       display: inline-block;
-      margin-bottom: 1.25rem;
+      margin-bottom: .75rem;
     }
 
     .card-avatar {
-      width: 82px;
-      height: 82px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       background: rgba(255,255,255,.18);
       backdrop-filter: blur(4px);
@@ -239,6 +239,16 @@
       font-weight: 700;
       color: white;
       letter-spacing: -.02em;
+    }
+
+    .card-avatar-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2.5px solid rgba(255,255,255,.7);
+      display: block;
     }
 
     .card-name {
@@ -458,7 +468,7 @@
   <div class="card-header">
     <img src="./logo_unitbit.png" alt="Unit Bit" class="header-logo">
     <div class="card-avatar-wrap">
-      <div class="card-avatar">AC</div>
+      <img class="card-avatar-img" src="./andrea_s.png" alt="Andrea Caspani">
     </div>
     <div class="card-name">Andrea Caspani</div>
   </div>
@@ -475,20 +485,11 @@
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z"/></svg>
         </div>
         <div class="row-text">
-          <div class="row-label">Ufficio</div>
+          <div class="row-label">Ufficio · Int. 105</div>
           <div class="row-value">+39 0342 904616</div>
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
-      <div class="contact-row static">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><path d="M4 2h16a1 1 0 011 1v18a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1zm7 15v2h2v-2h-2zm-4 0v2h2v-2H7zm8 0v2h2v-2h-2zM7 11v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zM7 7v2h2V7H7zm4 0v2h2V7h-2zm4 0v2h2V7h-2z"/></svg>
-        </div>
-        <div class="row-text">
-          <div class="row-label">Interno</div>
-          <div class="row-value">105</div>
-        </div>
-      </div>
       <a class="contact-row" href="mailto:andrea.caspani@unitbit.it">
         <div class="row-icon">
           <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -509,7 +510,7 @@
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
-      <div class="contact-row static">
+      <a class="contact-row" href="https://maps.app.goo.gl/GvW1BJvUxxKcb2Rs5" target="_blank" rel="noopener">
         <div class="row-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         </div>
@@ -517,7 +518,8 @@
           <div class="row-label">Indirizzo</div>
           <div class="row-value">Via Alberti snc, 23032 Bormio (SO)</div>
         </div>
-      </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
     </div>
 
     <button class="action-btn btn-primary" onclick="saveContact('andrea')">
@@ -551,7 +553,7 @@
   <div class="card-header">
     <img src="./logo_unitbit.png" alt="Unit Bit" class="header-logo">
     <div class="card-avatar-wrap">
-      <div class="card-avatar">DP</div>
+      <img class="card-avatar-img" src="./davide_s.png" alt="Davide Pedrini">
     </div>
     <div class="card-name">Davide Pedrini</div>
   </div>
@@ -568,20 +570,11 @@
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z"/></svg>
         </div>
         <div class="row-text">
-          <div class="row-label">Telefono</div>
+          <div class="row-label">Ufficio · Int. 108</div>
           <div class="row-value">+39 0342 904616</div>
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
-      <div class="contact-row static">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><path d="M4 2h16a1 1 0 011 1v18a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1zm7 15v2h2v-2h-2zm-4 0v2h2v-2H7zm8 0v2h2v-2h-2zM7 11v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zM7 7v2h2V7H7zm4 0v2h2V7h-2zm4 0v2h2V7h-2z"/></svg>
-        </div>
-        <div class="row-text">
-          <div class="row-label">Interno</div>
-          <div class="row-value">108</div>
-        </div>
-      </div>
       <a class="contact-row" href="mailto:davide.pedrini@unitbit.it">
         <div class="row-icon">
           <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -602,7 +595,7 @@
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
-      <div class="contact-row static">
+      <a class="contact-row" href="https://maps.app.goo.gl/GvW1BJvUxxKcb2Rs5" target="_blank" rel="noopener">
         <div class="row-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         </div>
@@ -610,7 +603,8 @@
           <div class="row-label">Indirizzo</div>
           <div class="row-value">Via Alberti snc, 23032 Bormio (SO)</div>
         </div>
-      </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
     </div>
 
     <button class="action-btn btn-primary" onclick="saveContact('davide')">
