@@ -78,40 +78,41 @@
     }
 
     .qr-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: .85rem;
       width: 100%;
-      max-width: 560px;
-      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-bottom: 2rem;
     }
 
     .qr-tile {
       background: var(--white);
       border-radius: var(--radius);
-      padding: 1.75rem 1.25rem 1.5rem;
-      text-align: center;
+      padding: .9rem 1.1rem;
       box-shadow: var(--shadow);
       cursor: pointer;
       text-decoration: none;
       color: inherit;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
+      gap: 1rem;
       transition: transform .2s, box-shadow .2s;
       border: 2px solid transparent;
     }
 
     .qr-tile:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-lg);
       border-color: var(--blue-light);
     }
 
     .qr-canvas-wrap {
-      width: 140px;
-      height: 140px;
-      margin-bottom: 1rem;
+      width: 88px;
+      height: 88px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -120,36 +121,26 @@
     .qr-canvas-wrap canvas,
     .qr-canvas-wrap img { display: block; }
 
-    .qr-initials {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--blue-light);
-      color: var(--blue);
-      font-weight: 700;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto .75rem;
+    .qr-tile-info {
+      flex: 1;
+      min-width: 0;
     }
 
     .qr-name {
       font-weight: 700;
-      font-size: .95rem;
-      margin-bottom: .2rem;
-    }
-
-    .qr-role {
-      font-size: .75rem;
-      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: .15rem;
     }
 
     .qr-scan-hint {
-      font-size: .7rem;
+      font-size: .72rem;
       color: var(--blue);
-      margin-top: .6rem;
       font-weight: 500;
+    }
+
+    .qr-tile-arrow {
+      color: #b0bac8;
+      flex-shrink: 0;
     }
 
     /* print instructions */
@@ -181,9 +172,10 @@
     .print-btn:hover { background: var(--blue); color: white; }
 
     .qr-dl-row {
-      display: flex;
-      gap: .75rem;
-      max-width: 560px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem;
+      max-width: 480px;
       width: 100%;
       margin-bottom: 1rem;
     }
@@ -213,13 +205,17 @@
        CARD PAGE — shared
     ════════════════════════════════ */
     #page-andrea,
-    #page-davide {
+    #page-davide,
+    #page-francesco,
+    #page-mario {
       min-height: 100vh;
       flex-direction: column;
       align-items: center;
     }
     #page-andrea.active,
-    #page-davide.active { display: flex; }
+    #page-davide.active,
+    #page-francesco.active,
+    #page-mario.active { display: flex; }
 
     .card-header {
       width: 100%;
@@ -460,33 +456,61 @@
   <div class="qr-grid">
     <!-- Andrea -->
     <a class="qr-tile" href="#andrea" onclick="navigate('andrea'); return false;">
-      <div class="qr-canvas-wrap">
-        <div id="qr-andrea"></div>
+      <div class="qr-canvas-wrap"><div id="qr-andrea"></div></div>
+      <div class="qr-tile-info">
+        <div class="qr-name">Andrea Caspani</div>
+        <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
       </div>
-      <div class="qr-initials">AC</div>
-      <div class="qr-name">Andrea Caspani</div>
-      <div class="qr-scan-hint">↑ Scansiona per aprire</div>
+      <svg class="qr-tile-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </a>
 
     <!-- Davide -->
     <a class="qr-tile" href="#davide" onclick="navigate('davide'); return false;">
-      <div class="qr-canvas-wrap">
-        <div id="qr-davide"></div>
+      <div class="qr-canvas-wrap"><div id="qr-davide"></div></div>
+      <div class="qr-tile-info">
+        <div class="qr-name">Davide Pedrini</div>
+        <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
       </div>
-      <div class="qr-initials">DP</div>
-      <div class="qr-name">Davide Pedrini</div>
-      <div class="qr-scan-hint">↑ Scansiona per aprire</div>
+      <svg class="qr-tile-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <!-- Francesco -->
+    <a class="qr-tile" href="#francesco" onclick="navigate('francesco'); return false;">
+      <div class="qr-canvas-wrap"><div id="qr-francesco"></div></div>
+      <div class="qr-tile-info">
+        <div class="qr-name">Francesco Zangrando</div>
+        <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
+      </div>
+      <svg class="qr-tile-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <!-- Mario -->
+    <a class="qr-tile" href="#mario" onclick="navigate('mario'); return false;">
+      <div class="qr-canvas-wrap"><div id="qr-mario"></div></div>
+      <div class="qr-tile-info">
+        <div class="qr-name">Mario Zangrando</div>
+        <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
+      </div>
+      <svg class="qr-tile-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </a>
   </div>
 
   <div class="qr-dl-row">
     <a class="dl-btn" href="./andrea_qr.png" download="Andrea_Caspani_QR.png">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 10v-2h2v2h-2zm-4 0v-2h2v2H7zm8 0v-2h2v2h-2z"/><path d="M5 20h14v2H5v-2z"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg>
       QR Andrea
     </a>
     <a class="dl-btn" href="./davide_qr.png" download="Davide_Pedrini_QR.png">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 10v-2h2v2h-2zm-4 0v-2h2v2H7zm8 0v-2h2v2h-2z"/><path d="M5 20h14v2H5v-2z"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg>
       QR Davide
+    </a>
+    <a class="dl-btn" href="./francesco_qr.png" download="Francesco_Zangrando_QR.png">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg>
+      QR Francesco
+    </a>
+    <a class="dl-btn" href="./mario_qr.png" download="Mario_Zangrando_QR.png">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg>
+      QR Mario
     </a>
   </div>
 
@@ -671,6 +695,176 @@
 </div>
 
 
+<!-- ═══════════════════════════════════════════════
+     FRANCESCO ZANGRANDO
+═══════════════════════════════════════════════ -->
+<div id="page-francesco" class="page">
+  <div class="card-header">
+    <img src="./logo_unitbit.png" alt="Unit Bit" class="header-logo">
+    <div class="card-avatar-wrap">
+      <div class="card-avatar">FZ</div>
+    </div>
+    <div class="card-name">Francesco Zangrando</div>
+  </div>
+
+  <div class="card-body">
+    <button class="back-btn" onclick="navigate('home')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Tutti i biglietti
+    </button>
+
+    <div class="contact-block">
+      <a class="contact-row" href="tel:+390342904616">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Ufficio · Int. 102</div>
+          <div class="row-value">+39 0342 904616</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="mailto:tecnico@unitbit.it">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Email</div>
+          <div class="row-value">tecnico@unitbit.it</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="https://unitbit.it" target="_blank" rel="noopener">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55-.45-1-1-1H8l-.88-.88L6 15v-1l1-1h3l1 1v1h1v-1l2-2v-2l-1-1H9l-1 1H6l-2-2v-2l1-1h2v-1h2V6.07c3.83.48 6.78 3.43 7.26 7.26A7.997 7.997 0 0111 19.93z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Web</div>
+          <div class="row-value">unitbit.it</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="https://maps.app.goo.gl/GvW1BJvUxxKcb2Rs5" target="_blank" rel="noopener">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Indirizzo</div>
+          <div class="row-value">Via Alberti snc, 23032 Bormio (SO)</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+
+    <button class="action-btn btn-primary" onclick="saveContact('francesco')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2zM12 17a3 3 0 100-6 3 3 0 000 6zm1-11H7v4h6V6z"/></svg>
+      Salva contatto
+    </button>
+    <a class="action-btn btn-xbees" href="https://app.x-bees.com/kite/tecnico@unitbit.it" target="_blank" rel="noopener" style="text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 95 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M91.6298 17.4916L63.3702 0.915471C61.2856 -0.305157 58.7144 -0.305157 56.6298 0.915471L28.3702 17.4916C26.2856 18.7122 25 20.9765 25 23.4239V56.5761C25 59.0235 26.2856 61.2817 28.3702 62.5084L56.6298 79.0845C58.7144 80.3052 61.2856 80.3052 63.3702 79.0845L91.6298 62.5084C93.7144 61.2878 95 59.0235 95 56.5761V23.4239C95 20.9765 93.7144 18.7183 91.6298 17.4916Z" fill="rgba(255,255,255,0.25)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M56.5379 22.998L53.9778 21.577C53.6054 21.3715 53.4753 20.9076 53.6822 20.5376C53.8892 20.1677 54.3562 20.0385 54.7287 20.2441L58.4298 22.2992C59.1098 22.675 59.9493 22.6633 60.6174 22.2699L64.2594 20.109C64.6201 19.8917 65.0931 20.0092 65.3118 20.3732C65.5306 20.7373 65.4123 21.2012 65.0458 21.4184L62.4325 22.9686C62.9824 23.1037 63.5263 23.2798 64.0643 23.4971C64.6615 23.7379 65.0753 24.237 65.235 24.8065C65.6252 25.7989 65.1463 26.9263 64.153 27.3432C63.6032 27.5781 63.0592 27.7425 62.468 27.9128C61.2737 28.2534 60.3868 28.4354 59.5059 28.4413C58.619 28.453 57.744 28.2886 56.5734 27.9422L56.4095 27.8945C55.9192 27.7523 55.4256 27.6092 54.9416 27.4137C54.3444 27.1729 53.9305 26.6738 53.7709 26.1042C53.3807 25.1119 53.8596 23.9845 54.8529 23.5676C55.4027 23.3327 55.9644 23.1448 56.5379 22.998ZM34 45.1528C34 40.784 44.6482 34.7183 50.5723 32.6808C50.8443 32.5868 51.134 32.763 51.1636 33.0448C51.2582 33.908 51.4947 34.7301 51.8553 35.4934C52.2278 36.2861 52.1509 37.2139 51.7016 37.9655C50.8775 39.3585 50.2449 40.6081 49.681 41.7218C48.4123 44.2275 47.492 46.0453 45.5232 47.2608C40.5332 50.3494 34 47.6307 34 45.1528ZM85 45.1528C85 40.784 74.3519 34.7183 68.4277 32.6808C68.1557 32.5868 67.866 32.763 67.8365 33.0448C67.7419 33.908 67.5054 34.7301 67.1447 35.4934C66.7722 36.2861 66.8491 37.2139 67.2984 37.9655C68.1225 39.3585 68.7552 40.6081 69.319 41.7218C70.5877 44.2275 71.508 46.0453 73.4768 47.2608C78.4669 50.3494 85 47.6953 85 45.1528ZM59.5 38.7465C59.6419 38.7465 59.7897 38.7407 59.9316 38.7289C63.3371 38.4882 66.0273 35.4348 66.0273 31.7002C66.0273 29.0967 64.7195 29.4429 62.7747 29.9578L62.5804 30.0091C61.6639 30.2498 60.6115 30.5082 59.5 30.5082C58.3055 30.5082 57.1863 30.2119 56.2235 29.957C54.2792 29.4423 52.9728 29.0965 52.9728 31.7002C52.9728 35.5933 55.8935 38.7465 59.5 38.7465ZM52.9331 44.4679C52.8853 44.4493 52.8356 44.43 52.7895 44.4071C51.9322 44.0195 51.5065 42.8804 51.8612 41.8939L51.8671 41.8763C52.1155 41.201 52.4879 40.4788 52.9018 39.8446C53.357 39.1458 54.2143 38.9403 54.8883 39.369C56.2423 40.2263 57.815 40.7254 59.4941 40.7254C60.174 40.7254 60.8362 40.6373 61.4747 40.4846C62.4148 40.2615 63.3075 39.8739 64.1175 39.3572C64.7974 38.9286 65.6607 39.14 66.11 39.8446C66.512 40.4788 66.8727 41.2127 67.121 41.8822L67.1254 41.8939C67.4935 42.8804 67.0678 44.0195 66.2105 44.4012C66.0272 44.4775 65.6074 44.6361 65.6074 44.6361C65.1936 44.7829 64.7324 44.9121 64.2299 45.0236C62.8937 45.3231 61.2619 45.4993 59.5 45.4993C57.0759 45.4993 54.9002 45.1704 53.3925 44.642C53.0555 44.5187 52.9727 44.4834 52.9727 44.4834L52.9331 44.4679ZM64.8003 55.7224C64.7916 55.6929 64.7815 55.6667 64.7738 55.6459C64.762 55.6136 64.7561 55.599 64.7561 55.599C64.7443 55.5755 64.7324 55.5579 64.7206 55.5403C64.6851 55.4874 64.6615 55.4639 64.6142 55.417C64.575 55.3861 64.5373 55.364 64.5373 55.364C64.5018 55.3406 64.4841 55.3347 64.4841 55.3347C64.3895 55.3113 64.3304 55.2995 64.3127 55.2995C64.2654 55.2995 64.2181 55.3054 64.1649 55.323C63.3844 55.5755 62.5508 55.7693 61.6698 55.8867C60.9722 55.9807 60.245 56.0335 59.5 56.0335C57.815 56.0335 56.2305 55.7751 54.8352 55.3171C54.7346 55.2936 54.6696 55.2936 54.6696 55.2936C54.571 55.313 54.5159 55.3289 54.5159 55.3289C54.4627 55.3582 54.4479 55.3669 54.4479 55.3669C54.3858 55.4111 54.3385 55.458 54.3385 55.458C54.2971 55.505 54.2794 55.5344 54.2617 55.5638C54.2439 55.5931 54.2084 55.6871 54.2084 55.6871C54.1848 55.7869 54.1789 55.8573 54.1789 55.8573C54.173 55.9278 54.183 56.0034 54.183 56.0034C54.2025 56.104 54.2853 56.2743 54.2853 56.2743C54.6873 56.8497 55.1189 57.3606 55.5742 57.8244C56.2719 58.5232 57.0286 59.0928 57.8268 59.5508C58.8792 60.1497 60.1149 60.1497 61.1732 59.5508C62.4917 58.8051 63.7037 57.7364 64.7147 56.2801C64.7502 56.2273 64.7797 56.1686 64.7975 56.1098C64.8093 56.0511 64.827 55.9337 64.827 55.9337C64.8211 55.8632 64.8211 55.8279 64.8003 55.7224ZM64.4781 47.3665C65.1699 47.2021 65.838 47.0142 66.4529 46.8087C67.1505 46.5738 67.8364 47.2021 67.7891 48.0359C67.7181 49.3043 67.4935 50.7723 66.8963 51.7176C66.8313 52.0171 66.583 52.1463 66.5002 52.2344C66.2755 52.4516 66.11 52.5867 65.9149 52.71C65.7316 52.8157 65.4655 52.9273 65.4655 52.9273C64.7383 53.1798 63.9283 53.3853 63.0651 53.5379C61.9654 53.7317 60.7829 53.8433 59.5472 53.8433H59.4645C57.2533 53.8433 55.2076 53.5027 53.5462 52.9273C53.2801 52.8157 53.0969 52.71 52.9964 52.6513C52.7599 52.4751 52.5115 52.2344 52.4288 52.1463C52.2219 51.9466 52.1391 51.7587 52.1391 51.7587C51.5183 50.7664 51.2995 49.2984 51.2227 48.0359C51.1754 47.2021 51.8612 46.5738 52.5529 46.8087C54.5631 47.484 57.1173 47.9713 59.494 47.9713H59.5177C61.1672 47.9713 62.8995 47.7365 64.4781 47.3665Z" fill="white"/>
+      </svg>
+      Chatta con me
+    </a>
+    <button class="action-btn btn-outline" onclick="shareCard('francesco')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.28 3.28 0 000-1.38l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 000-6 3 3 0 00-3 3c0 .24.04.47.09.69L8.04 9.81A3 3 0 006 9a3 3 0 000 6c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65a3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+      Condividi biglietto
+    </button>
+
+    <div class="co-footer">
+      Unit Bit Srl &nbsp;·&nbsp; Via Alberti snc, 23032 Bormio (SO)<br>
+      P.IVA&nbsp;00586740144 &nbsp;·&nbsp; <a href="mailto:info@unitbit.it">info@unitbit.it</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     MARIO ZANGRANDO
+═══════════════════════════════════════════════ -->
+<div id="page-mario" class="page">
+  <div class="card-header">
+    <img src="./logo_unitbit.png" alt="Unit Bit" class="header-logo">
+    <div class="card-avatar-wrap">
+      <div class="card-avatar">MZ</div>
+    </div>
+    <div class="card-name">Mario Zangrando</div>
+  </div>
+
+  <div class="card-body">
+    <button class="back-btn" onclick="navigate('home')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Tutti i biglietti
+    </button>
+
+    <div class="contact-block">
+      <a class="contact-row" href="tel:+390342904616">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Ufficio · Int. 103</div>
+          <div class="row-value">+39 0342 904616</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="mailto:mario@unitbit.it">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Email</div>
+          <div class="row-value">mario@unitbit.it</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="https://unitbit.it" target="_blank" rel="noopener">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55-.45-1-1-1H8l-.88-.88L6 15v-1l1-1h3l1 1v1h1v-1l2-2v-2l-1-1H9l-1 1H6l-2-2v-2l1-1h2v-1h2V6.07c3.83.48 6.78 3.43 7.26 7.26A7.997 7.997 0 0111 19.93z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Web</div>
+          <div class="row-value">unitbit.it</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a class="contact-row" href="https://maps.app.goo.gl/GvW1BJvUxxKcb2Rs5" target="_blank" rel="noopener">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">Indirizzo</div>
+          <div class="row-value">Via Alberti snc, 23032 Bormio (SO)</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+
+    <button class="action-btn btn-primary" onclick="saveContact('mario')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2zM12 17a3 3 0 100-6 3 3 0 000 6zm1-11H7v4h6V6z"/></svg>
+      Salva contatto
+    </button>
+    <a class="action-btn btn-xbees" href="https://app.x-bees.com/kite/mario@unitbit.it" target="_blank" rel="noopener" style="text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 95 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M91.6298 17.4916L63.3702 0.915471C61.2856 -0.305157 58.7144 -0.305157 56.6298 0.915471L28.3702 17.4916C26.2856 18.7122 25 20.9765 25 23.4239V56.5761C25 59.0235 26.2856 61.2817 28.3702 62.5084L56.6298 79.0845C58.7144 80.3052 61.2856 80.3052 63.3702 79.0845L91.6298 62.5084C93.7144 61.2878 95 59.0235 95 56.5761V23.4239C95 20.9765 93.7144 18.7183 91.6298 17.4916Z" fill="rgba(255,255,255,0.25)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M56.5379 22.998L53.9778 21.577C53.6054 21.3715 53.4753 20.9076 53.6822 20.5376C53.8892 20.1677 54.3562 20.0385 54.7287 20.2441L58.4298 22.2992C59.1098 22.675 59.9493 22.6633 60.6174 22.2699L64.2594 20.109C64.6201 19.8917 65.0931 20.0092 65.3118 20.3732C65.5306 20.7373 65.4123 21.2012 65.0458 21.4184L62.4325 22.9686C62.9824 23.1037 63.5263 23.2798 64.0643 23.4971C64.6615 23.7379 65.0753 24.237 65.235 24.8065C65.6252 25.7989 65.1463 26.9263 64.153 27.3432C63.6032 27.5781 63.0592 27.7425 62.468 27.9128C61.2737 28.2534 60.3868 28.4354 59.5059 28.4413C58.619 28.453 57.744 28.2886 56.5734 27.9422L56.4095 27.8945C55.9192 27.7523 55.4256 27.6092 54.9416 27.4137C54.3444 27.1729 53.9305 26.6738 53.7709 26.1042C53.3807 25.1119 53.8596 23.9845 54.8529 23.5676C55.4027 23.3327 55.9644 23.1448 56.5379 22.998ZM34 45.1528C34 40.784 44.6482 34.7183 50.5723 32.6808C50.8443 32.5868 51.134 32.763 51.1636 33.0448C51.2582 33.908 51.4947 34.7301 51.8553 35.4934C52.2278 36.2861 52.1509 37.2139 51.7016 37.9655C50.8775 39.3585 50.2449 40.6081 49.681 41.7218C48.4123 44.2275 47.492 46.0453 45.5232 47.2608C40.5332 50.3494 34 47.6307 34 45.1528ZM85 45.1528C85 40.784 74.3519 34.7183 68.4277 32.6808C68.1557 32.5868 67.866 32.763 67.8365 33.0448C67.7419 33.908 67.5054 34.7301 67.1447 35.4934C66.7722 36.2861 66.8491 37.2139 67.2984 37.9655C68.1225 39.3585 68.7552 40.6081 69.319 41.7218C70.5877 44.2275 71.508 46.0453 73.4768 47.2608C78.4669 50.3494 85 47.6953 85 45.1528ZM59.5 38.7465C59.6419 38.7465 59.7897 38.7407 59.9316 38.7289C63.3371 38.4882 66.0273 35.4348 66.0273 31.7002C66.0273 29.0967 64.7195 29.4429 62.7747 29.9578L62.5804 30.0091C61.6639 30.2498 60.6115 30.5082 59.5 30.5082C58.3055 30.5082 57.1863 30.2119 56.2235 29.957C54.2792 29.4423 52.9728 29.0965 52.9728 31.7002C52.9728 35.5933 55.8935 38.7465 59.5 38.7465ZM52.9331 44.4679C52.8853 44.4493 52.8356 44.43 52.7895 44.4071C51.9322 44.0195 51.5065 42.8804 51.8612 41.8939L51.8671 41.8763C52.1155 41.201 52.4879 40.4788 52.9018 39.8446C53.357 39.1458 54.2143 38.9403 54.8883 39.369C56.2423 40.2263 57.815 40.7254 59.4941 40.7254C60.174 40.7254 60.8362 40.6373 61.4747 40.4846C62.4148 40.2615 63.3075 39.8739 64.1175 39.3572C64.7974 38.9286 65.6607 39.14 66.11 39.8446C66.512 40.4788 66.8727 41.2127 67.121 41.8822L67.1254 41.8939C67.4935 42.8804 67.0678 44.0195 66.2105 44.4012C66.0272 44.4775 65.6074 44.6361 65.6074 44.6361C65.1936 44.7829 64.7324 44.9121 64.2299 45.0236C62.8937 45.3231 61.2619 45.4993 59.5 45.4993C57.0759 45.4993 54.9002 45.1704 53.3925 44.642C53.0555 44.5187 52.9727 44.4834 52.9727 44.4834L52.9331 44.4679ZM64.8003 55.7224C64.7916 55.6929 64.7815 55.6667 64.7738 55.6459C64.762 55.6136 64.7561 55.599 64.7561 55.599C64.7443 55.5755 64.7324 55.5579 64.7206 55.5403C64.6851 55.4874 64.6615 55.4639 64.6142 55.417C64.575 55.3861 64.5373 55.364 64.5373 55.364C64.5018 55.3406 64.4841 55.3347 64.4841 55.3347C64.3895 55.3113 64.3304 55.2995 64.3127 55.2995C64.2654 55.2995 64.2181 55.3054 64.1649 55.323C63.3844 55.5755 62.5508 55.7693 61.6698 55.8867C60.9722 55.9807 60.245 56.0335 59.5 56.0335C57.815 56.0335 56.2305 55.7751 54.8352 55.3171C54.7346 55.2936 54.6696 55.2936 54.6696 55.2936C54.571 55.313 54.5159 55.3289 54.5159 55.3289C54.4627 55.3582 54.4479 55.3669 54.4479 55.3669C54.3858 55.4111 54.3385 55.458 54.3385 55.458C54.2971 55.505 54.2794 55.5344 54.2617 55.5638C54.2439 55.5931 54.2084 55.6871 54.2084 55.6871C54.1848 55.7869 54.1789 55.8573 54.1789 55.8573C54.173 55.9278 54.183 56.0034 54.183 56.0034C54.2025 56.104 54.2853 56.2743 54.2853 56.2743C54.6873 56.8497 55.1189 57.3606 55.5742 57.8244C56.2719 58.5232 57.0286 59.0928 57.8268 59.5508C58.8792 60.1497 60.1149 60.1497 61.1732 59.5508C62.4917 58.8051 63.7037 57.7364 64.7147 56.2801C64.7502 56.2273 64.7797 56.1686 64.7975 56.1098C64.8093 56.0511 64.827 55.9337 64.827 55.9337C64.8211 55.8632 64.8211 55.8279 64.8003 55.7224ZM64.4781 47.3665C65.1699 47.2021 65.838 47.0142 66.4529 46.8087C67.1505 46.5738 67.8364 47.2021 67.7891 48.0359C67.7181 49.3043 67.4935 50.7723 66.8963 51.7176C66.8313 52.0171 66.583 52.1463 66.5002 52.2344C66.2755 52.4516 66.11 52.5867 65.9149 52.71C65.7316 52.8157 65.4655 52.9273 65.4655 52.9273C64.7383 53.1798 63.9283 53.3853 63.0651 53.5379C61.9654 53.7317 60.7829 53.8433 59.5472 53.8433H59.4645C57.2533 53.8433 55.2076 53.5027 53.5462 52.9273C53.2801 52.8157 53.0969 52.71 52.9964 52.6513C52.7599 52.4751 52.5115 52.2344 52.4288 52.1463C52.2219 51.9466 52.1391 51.7587 52.1391 51.7587C51.5183 50.7664 51.2995 49.2984 51.2227 48.0359C51.1754 47.2021 51.8612 46.5738 52.5529 46.8087C54.5631 47.484 57.1173 47.9713 59.494 47.9713H59.5177C61.1672 47.9713 62.8995 47.7365 64.4781 47.3665Z" fill="white"/>
+      </svg>
+      Chatta con me
+    </a>
+    <button class="action-btn btn-outline" onclick="shareCard('mario')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.28 3.28 0 000-1.38l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 000-6 3 3 0 00-3 3c0 .24.04.47.09.69L8.04 9.81A3 3 0 006 9a3 3 0 000 6c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65a3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+      Condividi biglietto
+    </button>
+
+    <div class="co-footer">
+      Unit Bit Srl &nbsp;·&nbsp; Via Alberti snc, 23032 Bormio (SO)<br>
+      P.IVA&nbsp;00586740144 &nbsp;·&nbsp; <a href="mailto:info@unitbit.it">info@unitbit.it</a>
+    </div>
+  </div>
+</div>
+
+
 <script>
 // ─── CONTACT DATA ────────────────────────────────────────────
 const CONTACTS = {
@@ -693,7 +887,27 @@ const CONTACTS = {
     email:  'davide.pedrini@unitbit.it',
     url:    'https://unitbit.it',
     adr:    'Via Alberti snc;;Bormio;SO;23032;Italy',
-  }
+  },
+  francesco: {
+    fn:     'Francesco Zangrando',
+    first:  'Francesco',
+    last:   'Zangrando',
+    org:    'Unit Bit Srl',
+    tel:    '+390342904616',
+    email:  'tecnico@unitbit.it',
+    url:    'https://unitbit.it',
+    adr:    'Via Alberti snc;;Bormio;SO;23032;Italy',
+  },
+  mario: {
+    fn:     'Mario Zangrando',
+    first:  'Mario',
+    last:   'Zangrando',
+    org:    'Unit Bit Srl',
+    tel:    '+390342904616',
+    email:  'mario@unitbit.it',
+    url:    'https://unitbit.it',
+    adr:    'Via Alberti snc;;Bormio;SO;23032;Italy',
+  },
 };
 
 // ─── ROUTING ─────────────────────────────────────────────────
@@ -713,11 +927,11 @@ window.addEventListener('popstate', () => {
 // ─── QR CODES ────────────────────────────────────────────────
 function buildQRCodes() {
   const base = window.location.href.split('#')[0];
-  ['andrea', 'davide'].forEach(who => {
+  ['andrea', 'davide', 'francesco', 'mario'].forEach(who => {
     new QRCode(document.getElementById('qr-' + who), {
       text:         base + '#' + who,
-      width:        140,
-      height:       140,
+      width:        88,
+      height:       88,
       colorDark:    '#1B5FAD',
       colorLight:   '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
