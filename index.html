@@ -205,13 +205,13 @@
        CARD PAGE — shared
     ════════════════════════════════ */
     #page-andrea, #page-davide, #page-francesco, #page-mario,
-    #page-renato, #page-michele, #page-stefano, #page-davide-c, #page-giulia {
+    #page-renato, #page-michele, #page-manuel, #page-stefano, #page-davide-c, #page-giulia {
       min-height: 100vh;
       flex-direction: column;
       align-items: center;
     }
     #page-andrea.active, #page-davide.active, #page-francesco.active, #page-mario.active,
-    #page-renato.active, #page-michele.active, #page-stefano.active,
+    #page-renato.active, #page-michele.active, #page-manuel.active, #page-stefano.active,
     #page-davide-c.active, #page-giulia.active { display: flex; }
 
     .card-header {
@@ -511,6 +511,16 @@
       <svg class="qr-tile-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </a>
 
+    <!-- Manuel -->
+    <a class="qr-tile" href="#manuel" onclick="navigate('manuel'); return false;">
+      <div class="qr-canvas-wrap"><div id="qr-manuel"></div></div>
+      <div class="qr-tile-info">
+        <div class="qr-name">Manuel Bradanini</div>
+        <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
+      </div>
+      <svg class="qr-tile-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
     <!-- Stefano -->
     <a class="qr-tile" href="#stefano" onclick="navigate('stefano'); return false;">
       <div class="qr-canvas-wrap"><div id="qr-stefano"></div></div>
@@ -549,6 +559,7 @@
     <a class="dl-btn" href="./mario_qr.png" download="Mario_Zangrando_QR.png"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg> QR Mario Z.</a>
     <a class="dl-btn" href="./renato_qr.png" download="Renato_Santelli_QR.png"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg> QR Renato</a>
     <a class="dl-btn" href="./michele_qr.png" download="Michele_Compagnoni_QR.png"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg> QR Michele</a>
+    <a class="dl-btn" href="./manuel_qr.png" download="Manuel_Bradanini_QR.png"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg> QR Manuel</a>
     <a class="dl-btn" href="./stefano_qr.png" download="Stefano_Santelli_QR.png"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg> QR Stefano</a>
     <a class="dl-btn" href="./davide_c_qr.png" download="Davide_Compagnoni_QR.png"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg> QR Davide C.</a>
     <a class="dl-btn" href="./giulia_qr.png" download="Giulia_Zangrando_QR.png"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7z"/><path d="M5 20h14v2H5v-2z"/></svg> QR Giulia</a>
@@ -951,6 +962,28 @@
   </div>
 </div>
 
+<!-- MANUEL BRADANINI -->
+<div id="page-manuel" class="page">
+  <div class="card-header">
+    <img src="./logo_unitbit.png" alt="Unit Bit" class="header-logo">
+    <div class="card-avatar-wrap"><div class="card-avatar">MB</div></div>
+    <div class="card-name">Manuel Bradanini</div>
+  </div>
+  <div class="card-body">
+    <button class="back-btn" onclick="navigate('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Tutti i biglietti</button>
+    <div class="contact-block">
+      <a class="contact-row" href="tel:+390342904616"><div class="row-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z"/></svg></div><div class="row-text"><div class="row-label">Ufficio · Int. 107</div><div class="row-value">+39 0342 904616</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+      <a class="contact-row" href="mailto:manuel.bradanini@unitbit.it"><div class="row-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div><div class="row-text"><div class="row-label">Email</div><div class="row-value">manuel.bradanini@unitbit.it</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+      <a class="contact-row" href="https://unitbit.it" target="_blank" rel="noopener"><div class="row-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55-.45-1-1-1H8l-.88-.88L6 15v-1l1-1h3l1 1v1h1v-1l2-2v-2l-1-1H9l-1 1H6l-2-2v-2l1-1h2v-1h2V6.07c3.83.48 6.78 3.43 7.26 7.26A7.997 7.997 0 0111 19.93z"/></svg></div><div class="row-text"><div class="row-label">Web</div><div class="row-value">unitbit.it</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+      <a class="contact-row" href="https://maps.app.goo.gl/GvW1BJvUxxKcb2Rs5" target="_blank" rel="noopener"><div class="row-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div><div class="row-text"><div class="row-label">Indirizzo</div><div class="row-value">Via Alberti snc, 23032 Bormio (SO)</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0bac8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <button class="action-btn btn-primary" onclick="saveContact('manuel')"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2zM12 17a3 3 0 100-6 3 3 0 000 6zm1-11H7v4h6V6z"/></svg> Salva contatto</button>
+    <a class="action-btn btn-xbees" href="https://app.x-bees.com/kite/manuel.bradanini@unitbit.com" target="_blank" rel="noopener" style="text-decoration:none;"><svg width="20" height="20" viewBox="0 0 95 82" fill="none"><path d="M91.6298 17.4916L63.3702 0.915471C61.2856-0.305157 58.7144-0.305157 56.6298 0.915471L28.3702 17.4916C26.2856 18.7122 25 20.9765 25 23.4239V56.5761C25 59.0235 26.2856 61.2817 28.3702 62.5084L56.6298 79.0845C58.7144 80.3052 61.2856 80.3052 63.3702 79.0845L91.6298 62.5084C93.7144 61.2878 95 59.0235 95 56.5761V23.4239C95 20.9765 93.7144 18.7183 91.6298 17.4916Z" fill="rgba(255,255,255,0.25)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M59.5 38.7465c4.5 0 6.5-3.05 6.5-7.05 0-2.6-1.31-2.25-3.25-1.74l-.19.05c-.92.24-1.97.5-3.06.5-1.19 0-2.31-.3-3.28-.55-1.94-.51-3.25-.87-3.25 1.74 0 3.89 2.92 7.05 6.53 7.05zm-6.57 5.72c-.85-.39-1.28-1.53-.92-2.51.25-.68.62-1.4 1.03-2.03.46-.7 1.31-.9 1.99-.47 1.35.86 2.92 1.36 4.6 1.36.68 0 1.34-.09 1.98-.24.94-.22 1.83-.61 2.64-1.13.68-.43 1.54-.22 1.99.48.4.63.76 1.37 1.01 2.04.37.99-.07 2.13-.93 2.51l-.6.24c-.41.15-.87.28-1.37.39-1.34.3-2.97.48-4.73.48-2.42 0-4.6-.33-6.1-.86l-.59-.26z" fill="white"/></svg> Chatta con me</a>
+    <button class="action-btn btn-outline" onclick="shareCard('manuel')"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.28 3.28 0 000-1.38l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 000-6 3 3 0 00-3 3c0 .24.04.47.09.69L8.04 9.81A3 3 0 006 9a3 3 0 000 6c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65a3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg> Condividi biglietto</button>
+    <div class="co-footer">Unit Bit Srl &nbsp;·&nbsp; Via Alberti snc, 23032 Bormio (SO)<br>P.IVA&nbsp;00586740144 &nbsp;·&nbsp; <a href="mailto:info@unitbit.it">info@unitbit.it</a></div>
+  </div>
+</div>
+
 <!-- STEFANO SANTELLI -->
 <div id="page-stefano" class="page">
   <div class="card-header">
@@ -1111,6 +1144,16 @@ const CONTACTS = {
     url:    'https://unitbit.it',
     adr:    'Via Alberti snc;;Bormio;SO;23032;Italy',
   },
+  manuel: {
+    fn:     'Manuel Bradanini',
+    first:  'Manuel',
+    last:   'Bradanini',
+    org:    'Unit Bit Srl',
+    tel:    '+390342904616',
+    email:  'manuel.bradanini@unitbit.it',
+    url:    'https://unitbit.it',
+    adr:    'Via Alberti snc;;Bormio;SO;23032;Italy',
+  },
 };
 
 // ─── ROUTING ─────────────────────────────────────────────────
@@ -1130,7 +1173,7 @@ window.addEventListener('popstate', () => {
 // ─── QR CODES ────────────────────────────────────────────────
 function buildQRCodes() {
   const base = window.location.href.split('#')[0];
-  ['andrea', 'davide', 'francesco', 'mario', 'renato', 'michele', 'stefano', 'davide-c', 'giulia'].forEach(who => {
+  ['andrea', 'davide', 'francesco', 'mario', 'renato', 'michele', 'manuel', 'stefano', 'davide-c', 'giulia'].forEach(who => {
     new QRCode(document.getElementById('qr-' + who), {
       text:         base + '#' + who,
       width:        88,
