@@ -116,6 +116,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      cursor: zoom-in;
     }
 
     .qr-canvas-wrap canvas,
@@ -142,6 +144,66 @@
       color: #b0bac8;
       flex-shrink: 0;
     }
+
+    /* ── QR tap-to-zoom badge ── */
+    .qr-zoom-hint {
+      position: absolute;
+      bottom: 0; right: 0;
+      background: var(--blue);
+      color: white;
+      border-radius: 5px;
+      width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; font-weight: 700;
+      pointer-events: none;
+      opacity: .9;
+    }
+
+    /* ── QR fullscreen overlay ── */
+    #qr-overlay {
+      position: fixed; inset: 0;
+      background: rgba(13,58,107,.82);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.1rem;
+      padding: 2rem 1.5rem;
+    }
+    #qr-overlay.open { display: flex; }
+    #qr-overlay-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: white;
+    }
+    #qr-overlay-wrap {
+      background: white;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 12px 48px rgba(0,0,0,.35);
+    }
+    #qr-overlay-wrap canvas,
+    #qr-overlay-wrap img { display: block; }
+    #qr-overlay-hint {
+      font-size: .78rem;
+      color: rgba(255,255,255,.75);
+      text-align: center;
+    }
+    #qr-overlay-close {
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.3);
+      color: white;
+      border-radius: 10px;
+      padding: .6rem 1.75rem;
+      font-size: .88rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: .4rem;
+      transition: background .15s;
+    }
+    #qr-overlay-close:hover { background: rgba(255,255,255,.3); }
 
     /* print instructions */
     .print-note {
@@ -501,7 +563,7 @@
   <div class="qr-grid">
     <!-- Manuel Bradanini -->
     <a class="qr-tile" href="#manuel" onclick="navigate('manuel'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-manuel"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'manuel','Manuel Bradanini')"><div id="qr-manuel"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Manuel Bradanini</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -511,7 +573,7 @@
 
     <!-- Andrea Caspani -->
     <a class="qr-tile" href="#andrea" onclick="navigate('andrea'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-andrea"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'andrea','Andrea Caspani')"><div id="qr-andrea"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Andrea Caspani</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -521,7 +583,7 @@
 
     <!-- Davide Compagnoni -->
     <a class="qr-tile" href="#davide-c" onclick="navigate('davide-c'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-davide-c"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'davide-c','Davide Compagnoni')"><div id="qr-davide-c"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Davide Compagnoni</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -531,7 +593,7 @@
 
     <!-- Michele Compagnoni -->
     <a class="qr-tile" href="#michele" onclick="navigate('michele'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-michele"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'michele','Michele Compagnoni')"><div id="qr-michele"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Michele Compagnoni</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -541,7 +603,7 @@
 
     <!-- Davide Pedrini -->
     <a class="qr-tile" href="#davide" onclick="navigate('davide'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-davide"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'davide','Davide Pedrini')"><div id="qr-davide"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Davide Pedrini</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -551,7 +613,7 @@
 
     <!-- Renato Santelli -->
     <a class="qr-tile" href="#renato" onclick="navigate('renato'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-renato"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'renato','Renato Santelli')"><div id="qr-renato"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Renato Santelli</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -561,7 +623,7 @@
 
     <!-- Stefano Santelli -->
     <a class="qr-tile" href="#stefano" onclick="navigate('stefano'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-stefano"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'stefano','Stefano Santelli')"><div id="qr-stefano"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Stefano Santelli</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -571,7 +633,7 @@
 
     <!-- Francesco Zangrando -->
     <a class="qr-tile" href="#francesco" onclick="navigate('francesco'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-francesco"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'francesco','Francesco Zangrando')"><div id="qr-francesco"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Francesco Zangrando</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -581,7 +643,7 @@
 
     <!-- Giulia Zangrando -->
     <a class="qr-tile" href="#giulia" onclick="navigate('giulia'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-giulia"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'giulia','Giulia Zangrando')"><div id="qr-giulia"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Giulia Zangrando</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -591,7 +653,7 @@
 
     <!-- Mario Zangrando -->
     <a class="qr-tile" href="#mario" onclick="navigate('mario'); return false;">
-      <div class="qr-canvas-wrap"><div id="qr-mario"></div></div>
+      <div class="qr-canvas-wrap" onclick="openQrOverlay(event,'mario','Mario Zangrando')"><div id="qr-mario"></div><span class="qr-zoom-hint">⊕</span></div>
       <div class="qr-tile-info">
         <div class="qr-name">Mario Zangrando</div>
         <div class="qr-scan-hint">Scansiona o tocca per aprire</div>
@@ -1462,11 +1524,45 @@ function copyCompanyData(btn) {
   });
 }
 
+// ─── QR OVERLAY ──────────────────────────────────────────────
+let _overlayQR = null;
+
+function openQrOverlay(e, who, name) {
+  e.preventDefault();
+  e.stopPropagation();
+  const overlay = document.getElementById('qr-overlay');
+  const wrap = document.getElementById('qr-overlay-wrap');
+  document.getElementById('qr-overlay-name').textContent = name;
+  wrap.innerHTML = '';
+  if (_overlayQR) { try { _overlayQR.clear(); } catch(_) {} }
+  const base = window.location.href.split('#')[0];
+  _overlayQR = new QRCode(wrap, {
+    text: base + '#' + who,
+    width: 260, height: 260,
+    colorDark: '#1B5FAD', colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+  overlay.classList.add('open');
+}
+
+function closeQrOverlay() {
+  document.getElementById('qr-overlay').classList.remove('open');
+}
+
 // ─── INIT ────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   buildQRCodes();
   navigate(window.location.hash.replace('#', '') || 'home');
 });
 </script>
+
+<!-- QR fullscreen overlay -->
+<div id="qr-overlay" onclick="if(event.target===this)closeQrOverlay()">
+  <span id="qr-overlay-name"></span>
+  <div id="qr-overlay-wrap"></div>
+  <p id="qr-overlay-hint">Mostra questo schermo da scansionare</p>
+  <button id="qr-overlay-close" onclick="closeQrOverlay()">Chiudi</button>
+</div>
+
 </body>
 </html>
